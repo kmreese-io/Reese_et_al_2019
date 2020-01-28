@@ -4,10 +4,13 @@
 ## AMERICAN ANTIQUITY
 ## Volume(Issue):PageStart-PageEnd
 ## Date of Publication 2019
+########################################################################################
+## AUTHOR: KELSEY M. REESE
+########################################################################################
 
 ########################################################
-########################################################
 # INSTALL REQUIRED PACKAGES AND CREATE PROJECT WORKSPACE
+########################################################
 
 r  <-  getOption('repos')
 r['CRAN']  <-  'http://cran.us.r-project.org'
@@ -30,8 +33,8 @@ dir.create('./ANALYSIS/CLUSTERS_cost-distance/',recursive=T,showWarnings=F)
 dir.create('./ANALYSIS/RESULTS/',recursive=T,showWarnings=F)
 
 ########################################################
-########################################################
 # FUNCTIONS REQUIRED FOR ANALYSES
+########################################################
 
 # Cost-distance analysis, outputs cost-kilometers
 costIterations <- function(x,...) {
@@ -85,8 +88,8 @@ communityEnclosures <- function(x,y) {
 }
 
 ########################################################
-########################################################
 # SET PROJECTION SYSTEM, IMPORT STUDY AREA BOUNDARY, DOWNLOAD DEM, CREATE COST-RASTER, IMPORT SITE DATA
+########################################################
 
 # Define the projection systems to be used. 'master.projection' should be set to your projection system that uses UTMs, and 'longlat.projection' should be kept as is. 
 master.projection <- sp::CRS('+proj=YOUR +datum=PROJ4 +zone=HERE')
@@ -128,8 +131,8 @@ site.coordinates <- sp::SpatialPointsDataFrame(coords=site.coordinates,site.info
 site.coordinates <- site.coordinates[study.area,]
 
 ########################################################
-########################################################
 # CREATE DATASET FOR NULL MODEL AND RUN NULL MODEL.
+########################################################
 
 study.area.coordinates <- raster::rasterToPoints(study.area.dem,spatial=T)
 null.coordinates <- study.area.coordinates[study.area,]
@@ -144,8 +147,9 @@ costIterations()
 null <- base::as.character('./ANALYSIS/SITES_cost-distance/NULL.csv')
 
 ########################################################
-########################################################
 # RUN THE COST DISTANCE AND CLUSTER ANALYSES.
+########################################################
+
 # Only one time period is shown here, but you can repeat this analysis for each time period in your study, just change the names of each file so they are saved separately.
 
 # Name the output *.csv files by the time period you are calculating.
@@ -177,8 +181,8 @@ replicate(repeat.analysis,communityClusters())
 write.csv(cbind(read.csv(phase.clusters,header=F),read.csv(sample.sites,header=F)),file=cluster.information)
 
 ########################################################
-########################################################
 # CALCULATE THE SUMMARY STATISTICS FOR YOUR ANALYSIS
+########################################################
 
 ## Phase information for output. Enter the time period number, beginning, middle, and end of the time period that you analyzed above.
 modeling.phase <- 15
